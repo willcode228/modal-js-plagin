@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Javascript Modal Plugin</title>
+	<link rel="stylesheet" href="./styles/styles.css">
+</head>
+<body>
+
+	<div class="modal"></div>
+
+	<script src="./scripts/modal.js"></script>
+
+	<script>
+		const modal = new Modal('.modal', {
+			beforeOpen: () => console.log('before open'),
+			onOpen: () => console.log('on open'),
+
+			beforeClose: () => console.log('before close'),
+			onClose: () => console.log('on close'),
+		});
+	</script>
+</body>
+</html>
