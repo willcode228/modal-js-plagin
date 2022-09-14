@@ -10,18 +10,34 @@
 </head>
 <body>
 
-	<div class="modal"></div>
+<div class="modal1"></div>
+<div class="modal2"></div>
+<div class="modal3"></div>
+<div class="modal4"></div>
 
-	<script src="./scripts/modal.js"></script>
+<button onclick="() => modal1.open()">1</button>
+<button onclick="() => modal2.open()">2</button>
+<button onclick="() => modal3.open()">3</button>
+<button onclick="() => modal4.open()">4</button>
 
-	<script>
-		const modal = new Modal('.modal', {
-			beforeOpen: () => console.log('before open'),
-			onOpen: () => console.log('on open'),
+<script src="./scripts/modal.js"></script>
 
-			beforeClose: () => console.log('before close'),
-			onClose: () => console.log('on close'),
-		});
-	</script>
+<script>
+	const modal1 = new Modal('.modal1', {
+		isWithOverlay: true
+	});
+
+	const modal2 = new Modal('.modal2', {
+		isWithOverlay: true
+	});
+
+	const modal3 = new Modal('.modal3', {
+		isWithOverlay: true
+	});
+
+	const modal4 = new Modal('.modal4', {
+		isWithOverlay: true
+	});
+</script>
 </body>
 </html>
