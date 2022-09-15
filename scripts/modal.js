@@ -1,9 +1,14 @@
 class Modal {
 	constructor(selector, {
 		beforeClose, beforeOpen, onOpen, onClose,
-		isWithOverlay = false
+		isWithOverlay = false,
+		modalClass, overlayClass,
+		isCloseOnOverlay = false
 	}) {
-		this.initModalElement(selector, isWithOverlay);
+		this.initModalElement({
+			selector, modalClass,
+			overlayClass, isWithOverlay, isCloseOnOverlay
+		});
 
 		this.isOpen = false;
 
@@ -13,13 +18,14 @@ class Modal {
 		this.beforeOpen = beforeOpen;
 	}
 
-	initModalElement(selector, isWithOverlay) {
+	initModalElement({selector, isWithOverlay, modalClass, overlayClass, isCloseOnOverlay}) {
 		this.getModalElement(selector);
 
 		if (this.modal.hasChildNodes()) return;
 		this.modal.textContent = 'Default modal text';
+		if(modalClass) this.modal.classList.add(modalClass);
 
-		if(isWithOverlay) this.setOverlay();
+		if(isWithOverlay) this.setOverlay(overlayClass, isCloseOnOverlay);
 	}
 
 
@@ -31,16 +37,19 @@ class Modal {
 		this.modal.classList.add('pmodal-close');
 	}
 
-	setOverlay() {
+	setOverlay(overlayClass, isCloseOnOverlay) {
 		const overlayElement = document.querySelector('.poverlay');
 		if(overlayElement) return;
 
 		const overlay = document.createElement('div');
 		overlay.classList.add('poverlay');
 		overlay.classList.add('poverlay-close');
+		if(overlayClass) overlay.classList.add(overlayClass);
 
 		this.modal.insertAdjacentElement('afterend', overlay);
 		this.overlay = overlay;
+
+		if(isCloseOnOverlay) this.overlay.addEventListener('click', this.close.bind(this));
 	}
 
 	showOverlay() {
