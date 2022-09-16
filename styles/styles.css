@@ -9,6 +9,7 @@
 
 .pmodal-close {
 	opacity: 0;
+	pointer-events: none;
 }
 
 .pmodal-open {

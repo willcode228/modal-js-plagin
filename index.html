@@ -10,34 +10,44 @@
 </head>
 <body>
 
-<div class="modal1"></div>
+<div class="modal1">
+	<div class="close1" style="cursor: pointer">1</div>
+	<br>
+	<br>
+
+	<div id="close2" style="cursor: pointer">2</div>
+	<br>
+	<br>
+
+	<div class="close3" style="cursor: pointer">3</div>
+</div>
+
 <div class="modal2"></div>
 <div class="modal3"></div>
 <div class="modal4"></div>
-
-<button onclick="() => modal1.open()">1</button>
-<button onclick="() => modal2.open()">2</button>
-<button onclick="() => modal3.open()">3</button>
-<button onclick="() => modal4.open()">4</button>
 
 <script src="./scripts/modal.js"></script>
 
 <script>
 	const modal1 = new Modal('.modal1', {
 		isWithOverlay: true,
-	  	isCloseOnOverlay: true
+	  	isCloseOnOverlay: true,
+	  	closeSelectors: ['.close1', '#close2', '.close3']
 	});
 
 	const modal2 = new Modal('.modal2', {
-		isWithOverlay: true
+		isWithOverlay: true,
+		isCloseOnOverlay: true
 	});
 
 	const modal3 = new Modal('.modal3', {
-		isWithOverlay: true
+		isWithOverlay: true,
+		isCloseOnOverlay: true
 	});
 
 	const modal4 = new Modal('.modal4', {
-		isWithOverlay: true
+		isWithOverlay: true,
+		isCloseOnOverlay: true
 	});
 </script>
 </body>
