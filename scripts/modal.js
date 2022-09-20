@@ -80,7 +80,6 @@ class Modal {
 	}
 
 	close() {
-		console.log('kjh');
 		if(this.beforeClose) this.beforeClose();
 		this.isOpen = false;
 		this.modal.classList.add('pmodal-close');
