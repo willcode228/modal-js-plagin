@@ -5,15 +5,13 @@
 	transform: translate(-50%);
 	background: white;
 	z-index: 1;
-}
-
-.pmodal-close {
 	opacity: 0;
 	pointer-events: none;
 }
 
 .pmodal-open {
 	opacity: 1;
+	pointer-events: inherit;
 }
 
 .poverlay {
@@ -23,13 +21,11 @@
 	width: 100vw;
 	height: 100vh;
 	background: rgba(0,0,0, .5);
+	opacity: 0;
+	pointer-events: none;
 }
 
 .poverlay-open {
 	opacity: 1;
-}
-
-.poverlay-close {
-	opacity: 0;
-	pointer-events: none;
+	pointer-events: inherit;
 }

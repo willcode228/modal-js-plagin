@@ -4,20 +4,18 @@ class Modal {
 		isWithOverlay = false,
 		modalClass, overlayClass,
 		isCloseOnOverlay = false,
-		closeSelectors
+		closeModalElementsSelectors
 	}) {
 		this.modalSelector = selector;
 
-		this.initModalElement({selector, modalClass});
-		this.setCloseToElements(closeSelectors);
-		if(isWithOverlay) this.setOverlay(overlayClass, isCloseOnOverlay);
-
-		this.isOpen = false;
-
 		this.onOpen = onOpen;
 		this.onClose = onClose;
-		this.beforeClose = beforeClose;
 		this.beforeOpen = beforeOpen;
+		this.beforeClose = beforeClose;
+
+		this.initModal({selector, modalClass});
+		this.setCloseMethodToElements(closeModalElementsSelectors);
+		if(isWithOverlay) this.initOverlay(overlayClass, isCloseOnOverlay);
 	}
 
 	getElement(selector) {
@@ -26,66 +24,53 @@ class Modal {
 		return element;
 	}
 
-	initModalElement({selector, modalClass}) {
-		this.getModalElement(selector);
+	initModal({selector, modalClass}) {
+		this.modal = this.getElement(selector);
+		this.modal.classList.add('pmodal')
 
 		if (this.modal.hasChildNodes()) return;
 		this.modal.textContent = 'Default modal text';
 		if(modalClass) this.modal.classList.add(modalClass);
 	}
 
-	getModalElement(selector) {
-		this.modal = this.getElement(selector);
-		this.modal.classList.add('pmodal')
-		this.modal.classList.add('pmodal-close');
+	toggleModal(status) {
+		this.modal.classList[status ? 'add' : 'remove']('pmodal-open');
+		this.toggleOverlay(status)
 	}
 
-	setOverlay(overlayClass, isCloseOnOverlay) {
+	openModal() {
+		if(this.beforeOpen) this.beforeOpen();
+		this.toggleModal(true);
+		if(this.onOpen) this.onOpen();
+	}
+
+	closeModal() {
+		if(this.beforeClose) this.beforeClose();
+		this.toggleModal(false);
+		if(this.onClose) this.onClose();
+	}
+
+	initOverlay(overlayClass, isCloseOnOverlay) {
 		this.overlay = document.createElement('div');
 		this.overlay.classList.add('poverlay');
-		this.overlay.classList.add('poverlay-close');
 		if(overlayClass) this.overlay.classList.add(overlayClass);
 
 		this.modal.insertAdjacentElement('afterend', this.overlay);
 
-		if(isCloseOnOverlay)
-			this.overlay.addEventListener('click', this.close.bind(this));
+		if(!isCloseOnOverlay) return;
+		this.overlay.addEventListener('click', this.closeModal.bind(this));
 	}
 
-	showOverlay() {
-		this.overlay.classList.add('poverlay-open');
-		this.overlay.classList.remove('poverlay-close');
+	toggleOverlay(status) {
+		this.overlay.classList[status ? 'add' : 'remove']('poverlay-open');
 	}
 
-	hideOverlay() {
-		this.overlay.classList.add('poverlay-close');
-		this.overlay.classList.remove('poverlay-open');
-	}
-
-	setCloseToElements(selectors) {
+	setCloseMethodToElements(selectors) {
 		if(!selectors || !selectors.length) return;
 		selectors.forEach(item => {
 			const element = this.getElement(`${this.modalSelector} ${item}`);
-			element.addEventListener('click', this.close.bind(this));
+			element.addEventListener('click', this.closeModal.bind(this));
 		});
-	}
-
-	open() {
-		if(this.beforeOpen) this.beforeOpen();
-		this.isOpen = true;
-		this.modal.classList.add('pmodal-open');
-		this.modal.classList.remove('pmodal-close');
-		this.showOverlay();
-		if(this.onOpen) this.onOpen();
-	}
-
-	close() {
-		if(this.beforeClose) this.beforeClose();
-		this.isOpen = false;
-		this.modal.classList.add('pmodal-close');
-		this.modal.classList.remove('pmodal-open');
-		this.hideOverlay();
-		if(this.onClose) this.onClose();
 	}
 
 	destroy() {
