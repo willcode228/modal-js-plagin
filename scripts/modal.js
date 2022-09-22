@@ -39,6 +39,9 @@ class Modal {
 	}
 
 	openModal() {
+		const allPModal = document.querySelectorAll('.pmodal');
+		allPModal.forEach(modal => modal.classList.remove('pmodal-open'))
+
 		if(this.beforeOpen) this.beforeOpen();
 		this.toggleModal(true);
 		if(this.onOpen) this.onOpen();
