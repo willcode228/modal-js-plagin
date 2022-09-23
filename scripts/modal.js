@@ -65,6 +65,11 @@ class Modal {
 	}
 
 	toggleOverlay(status) {
+		if(status) {
+			const allPOverlay= document.querySelectorAll('.poverlay');
+			allPOverlay.forEach(overlay => overlay.classList.remove('poverlay-open'))
+		}
+
 		this.overlay.classList[status ? 'add' : 'remove']('poverlay-open');
 	}
 
