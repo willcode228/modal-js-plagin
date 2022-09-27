@@ -10,14 +10,36 @@
 </head>
 <body>
 
-<div class="modal1">Modal number 1</div>
+<div class="modal1">Modal number 1
+	<p>close</p>
+</div>
+<div class="modal2">Modal number 2</div>
+<div class="modal3">Modal number 3</div>
+<div class="modal4">Modal number 4</div>
 
-<script src="./scripts/classes.js"></script>
+<!--<script src="./scripts/classes.js"></script>-->
+<script src="./scripts/prototypes.js"></script>
 
 <script>
 	const modal1 = new Modal('.modal1', {
 		isWithOverlay: true,
 	  	isCloseOnOverlay: true,
+	  	closeModalElementsSelectors: ['p'],
+	});
+
+	const modal2 = new Modal('.modal2', {
+		isWithOverlay: true,
+		isCloseOnOverlay: true,
+	});
+
+	const modal3 = new Modal('.modal3', {
+		isWithOverlay: true,
+		isCloseOnOverlay: true,
+	});
+
+	const modal4 = new Modal('.modal4', {
+		isWithOverlay: true,
+		isCloseOnOverlay: true,
 	});
 </script>
 </body>
